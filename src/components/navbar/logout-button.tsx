@@ -8,7 +8,8 @@ const UserProfile = () => {
   const router = useRouter();
   const logout = () => {
     startTransition(async () => {
-      const res = await fetch("http://localhost:3000/api/logout", {
+      const domain = process.env.DOMAIN;
+      const res = await fetch(`${domain}/api/logout`, {
         method: "POST",
       });
       if (res.status === 200) {

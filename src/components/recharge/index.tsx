@@ -1,11 +1,10 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import DepositAmount from "./deposit-amount";
 import AddMoney from "./add-money";
 import RechargeButton from "./recharge-button";
 import Payments from "../payments";
-import { useRouter } from "next/navigation";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const Recharge = () => {
   const searchParams = useSearchParams();

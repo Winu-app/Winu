@@ -2,7 +2,8 @@
 
 export async function getAllTournaments() {
   try {
-    const res = await fetch(`http://localhost:3000/api/tournaments`, {
+    const domain = process.env.DOMAIN;
+    const res = await fetch(`${domain}/api/tournaments`, {
       method: "GET",
     }).then((res) => res.json());
     return res;
