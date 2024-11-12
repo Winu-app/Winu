@@ -1,13 +1,14 @@
 import { parseAsBoolean, useQueryState } from "nuqs";
 import React from "react";
 import { IoClose } from "react-icons/io5";
+import ToggleOptions from "./toggle-options";
 
 const Header = () => {
-  const [showClan, setShowClan] = useQueryState("clan-modal", parseAsBoolean);
+  const [_, setShowClan] = useQueryState("clan-modal", parseAsBoolean);
 
   return (
     <div className="flex w-full justify-between items-center ">
-      <h2 className="font-semibold">Clan</h2>
+      <ToggleOptions />
       <button
         className="rounded-full hover:bg-active flex items-center justify-between p-1"
         onClick={() => setShowClan(false)}

@@ -21,7 +21,7 @@ const InputField = ({
     <div className="w-full flex flex-col gap-1">
       <label className="text-xs ml-1">{fieldName}</label>
       <input
-        className="outline-none bg-foreground p-2 rounded-lg text-sm"
+        className="outline-none bg-foreground p-2 rounded-lg text-sm autofill:bg-foreground active:bg-foreground focus:bg-foreground"
         placeholder={placeholder}
         value={value}
         onChange={(e) => setValue(e.target.value)}

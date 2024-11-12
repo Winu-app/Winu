@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useTransition } from "react";
 import Logo from "../../ui/logo";
-import InputField from "../input-field";
+import InputField from "../../ui/input-field";
 import { toast } from "sonner";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/navigation";
