@@ -1,0 +1,15 @@
+.slide_wrap:hover .logo_slide {
+  animation-play-state: paused;
+}
+
+.logo_slide {
+  animation: slide 15s linear infinite;
+}
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
