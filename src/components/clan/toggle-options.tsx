@@ -1,36 +1,41 @@
 import { parseAsString, useQueryState } from "nuqs";
-import React from "react";
+import React, { useEffect } from "react";
 
 const clanOptions = [
   {
-    name: "My Clan",
+    name: "My clan",
     value: "my-clan",
   },
+  // {
+  //   name: "Search clan",
+  //   value: "search-clan",
+  // },
+  // {
+  //   name: "Top clans",
+  //   value: "top-clans",
+  // },
   {
-    name: "Search Clan",
-    value: "search-clan",
-  },
-  {
-    name: "Top Clans",
-    value: "top-clans",
-  },
-  {
-    name: "Create Clan",
+    name: "Create clan",
     value: "create-clan",
   },
 ];
 
-const Toggle = () => {
+const ToggleOptions = () => {
   const [clanOption, setClanOption] = useQueryState(
     "clan-option",
-    parseAsString.withDefault("my-clan")
+    parseAsString
   );
   const handleToggle = (e: React.MouseEvent<HTMLDivElement>) => {
     const option = (e.target as HTMLDivElement).getAttribute(
       "data-clan-option"
     );
+    if (!option) return;
     setClanOption(option);
   };
+
+  useEffect(() => {
+    setClanOption("my-clan");
+  }, []);
   return (
     <div
       className="w-full h-10 font-semibold gap-2 flex items-center"
@@ -53,4 +58,4 @@ const Toggle = () => {
   );
 };
 
-export default Toggle;
+export default ToggleOptions;

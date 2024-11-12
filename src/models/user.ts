@@ -35,6 +35,7 @@ const userSchema = new Schema(
     },
     numberOfTournamentsPlayed: { type: Number, default: 0 },
     rank: { type: Number, default: 0 },
+    clan: { type: Schema.Types.ObjectId },
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: String,
     verifyToken: String,

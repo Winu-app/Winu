@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useTransition } from "react";
 import Logo from "../../ui/logo";
-import InputField from "../input-field";
+import InputField from "../../ui/input-field";
 import { toast } from "sonner";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/navigation";
@@ -41,8 +41,7 @@ const Register = () => {
     };
     startTransition(async () => {
       try {
-        const domain = process.env.DOMAIN;
-        const res = await fetch(`${domain}/api/sign-up`, {
+        const res = await fetch(`/api/sign-up`, {
           method: "POST",
           body: JSON.stringify(body),
         }).then(async (res) => await res.json());
