@@ -29,7 +29,8 @@ const Login = () => {
     };
     startTransition(async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/sign-in", {
+        const domain = process.env.DOMAIN;
+        const res = await fetch(`${domain}/api/sign-in`, {
           method: "POST",
           body: JSON.stringify(body),
         });

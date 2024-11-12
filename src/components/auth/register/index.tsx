@@ -41,7 +41,8 @@ const Register = () => {
     };
     startTransition(async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/sign-up", {
+        const domain = process.env.DOMAIN;
+        const res = await fetch(`${domain}/api/sign-up`, {
           method: "POST",
           body: JSON.stringify(body),
         }).then(async (res) => await res.json());
