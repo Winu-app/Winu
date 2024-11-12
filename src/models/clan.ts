@@ -6,6 +6,7 @@ const clanSchema = new Schema(
     uniqueName: { type: String, required: true, unique: true },
     leader: { type: Schema.Types.ObjectId, ref: "User", required: true },
     coLeaders: { type: [Schema.Types.ObjectId], ref: "User" },
+    members: { type: [Schema.Types.ObjectId], ref: "User" },
   },
   { timestamps: true }
 );
