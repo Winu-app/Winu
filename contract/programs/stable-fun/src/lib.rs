@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
-use chainlink_solana as chainlink;
-use chainlink_solana::Round;
+// use chainlink_solana as chainlink;
+// use chainlink_solana::Round;
 
 mod state;
 mod constants;
@@ -66,8 +66,37 @@ mod winu {
         Ok(())
     }
 
+    pub fn remove_co_leader(
+        ctx:Context<RemoveCoLeader>,
+        co_leader:Pubkey,
+        clan_name:String
+    ) -> Result<()>{
+        let clan = &mut ctx.accounts.clan;
+        if let Some(index) = clan.co_leaders.iter().position(|&x| x == co_leader) {
+            clan.co_leaders.remove(index);
+            msg!("Co-leader {} removed successfully", co_leader);
+            Ok(())
+        } else {
+            return err!(WinuError::CoLeaderNotFound);
+        }
+    }
+
 }
 
+#[derive(Accounts)]
+#[instruction(new_co:Pubkey,clan_name:String)]
+pub struct RemoveCoLeader<'info>{
+    #[account(
+        mut,
+        seeds = [CLAN_SEED.as_bytes(), clan_name.as_bytes()],
+        bump
+    )]
+    pub clan: Box<Account<'info, Clan>>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+    pub system_program: Program<'info, System>
+}
 #[derive(Accounts)]
 #[instruction(new_co:Pubkey,clan_name:String)]
 pub struct AddCoLeader<'info>{
