@@ -6,6 +6,8 @@ pub enum WinuError {
     MaxCoLeaders,
     #[msg("Clan not found")]
     ClanNotFound,
+    #[msg("Co-leader not found")]
+    CoLeaderNotFound,
     #[msg("Winner already declared..!")]
     WinnerDeclared,
     #[msg("Insufficient bids! Expected at least 5 bids.")]
