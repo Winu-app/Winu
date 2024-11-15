@@ -1,22 +1,22 @@
 "use client";
-import Image from "next/image.js
-import React from "react";
-import styles from "./hero.module.css";
-import { Rocket } from "lucide-react";
-import { TbSwords } from "react-icons/tb/index.js
-import { IoLogoGameControllerB } from "react-icons/io/index.js
-import { FaTeamspeak, FaTrophy } from "react-icons/fa/index.js
+
+import Image from "next/image";
+import { FaTeamspeak, FaTrophy } from "react-icons/fa";
 import {
   GiBloodySword,
   GiGoldBar,
   GiM3GreaseGun,
-  GiMachineGun,
   GiShotgunRounds,
-  GiSwordsEmblem,
   GiWhistle,
-} from "react-icons/gi/index.js
+  GiMachineGun,
+  GiSwordsEmblem,
+} from "react-icons/gi";
+import { IoLogoGameControllerB } from "react-icons/io";
+import { TbSwords } from "react-icons/tb";
 import Logo from "../ui/logo";
-import Link from "next/link.js
+import Link from "next/link";
+
+import styles from "./hero.module.css";
 
 const Hero = () => {
   return (
