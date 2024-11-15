@@ -19,8 +19,8 @@ pub struct User {
 #[account]
 pub struct Clan {
     pub name: String,  
-    pub members: Option<[Pubkey; 10]>,     
-    pub co_leaders: Option<[Pubkey; 2]>,   
+    pub members: Vec<Pubkey>,     
+    pub co_leaders: Vec<Pubkey>,   
     pub leader: Pubkey,
     pub points: i64,
 }
@@ -30,7 +30,7 @@ pub struct Game {
     pub name: Pubkey, 
     pub start_date: i64,             
     pub end_date: i64,             
-    pub clans: Option<[Pubkey; 25]>,
+    pub clans: Vec<Pubkey>,
     pub is_active: bool,
     pub winner: Option<Pubkey>,
     pub host: Pubkey,

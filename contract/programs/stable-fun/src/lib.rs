@@ -4,7 +4,8 @@ use chainlink_solana::Round;
 
 mod state;
 mod constants;
-use crate::{constants::*, state::*};
+mod errors;
+use crate::{constants::*, state::*, errors::*};
 
 declare_id!("BrTsF5GJNb4jk7jTuYFV3B8YG2cAqWUXrdsFUar5BC6z");
 
@@ -45,8 +46,8 @@ mod winu {
      ) -> Result<()>{
         let clan = &mut ctx.accounts.clan;
         clan.name = name;
-        clan.members=Some(members);
-        clan.co_leaders = Some(co_leaders);
+        clan.members=members.to_vec();
+        clan.co_leaders = co_leaders.to_vec();
         msg!("{} Clan Created", clan.name);
         Ok(())
     }
@@ -56,7 +57,12 @@ mod winu {
         new_co:Pubkey,
         clan_name:String
     ) -> Result<()>{
-
+        let clan = &mut ctx.accounts.clan;
+        let co_len = clan.co_leaders.len();
+        if  co_len >= 2 {
+            return err!(WinuError::MaxCoLeaders);
+        }
+        clan.co_leaders.push(new_co);
         Ok(())
     }
 
