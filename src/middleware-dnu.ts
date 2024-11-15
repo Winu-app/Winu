@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
 
   const isPublicPath = config.matcher.includes(path);
 
-  const token = request.cookies.get("winu-token")?.value || "";
+  const token = request.cookies.get("winu-token")?.value;
 
   if (isPublicPath && token) {
     return NextResponse.redirect(new URL("/tournaments", request.url));
@@ -22,7 +22,7 @@ export function middleware(request: NextRequest) {
 // Configuration for matching public paths
 export const config = {
   matcher: [
-    "/",
+    // "/",
     "/sign-in",
     "/sign-up",
     "/verify-email",
