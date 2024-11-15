@@ -60,7 +60,7 @@ const Hero = () => {
           />
         </div>
       </div>
-      <div className="w-full h-full gap-12 flex pb-32 justify-center flex-col items-center absolute z-30 ">
+      <div className="w-full h-full gap-12 flex pb-20 justify-center flex-col items-center absolute z-30 ">
         <div className="w-[40rem] h-[18rem] relative flex flex-col gap-10 text-center items-center max-md:w-[20rem]">
           <div className="flex flex-col gap-4 max-md:gap-10 items-center ">
             <div className="bg-purple pl-2 pr-4 py-0.5 rounded-full font-semibold  flex items-center justify-center gap-1">
@@ -77,10 +77,10 @@ const Hero = () => {
           </div>
 
           <Link
-            href="/login"
+            href="/tournaments"
             className="px-6 py-2 rounded-xl bg-gray-100 text-black font-semibold active:scale-95 transition-transform flex items-center justify-center gap-2"
           >
-            Login
+            Explore
             <GiShotgunRounds size={24} />
           </Link>
         </div>
