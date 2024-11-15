@@ -4,7 +4,7 @@ import PlayerCard from "./player-card";
 
 const MyClan = () => {
   return (
-    <div className="w-full py-3">
+    <div className="size-full py-3">
       <div className="size-full-full flex items-center px-10">
         <div className="size-full pb-2">
           <Image
