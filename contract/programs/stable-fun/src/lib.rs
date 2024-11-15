@@ -62,24 +62,20 @@ mod winu {
 
 }
 
-#[account(Accounts)]
+#[derive(Accounts)]
 #[instruction(new_co:Pubkey,clan_name:String)]
-pub struct AddCoLeader{
+pub struct AddCoLeader<'info>{
     #[account(
         mut,
-        seeds = [CLAN_SEED.as_bytes, clan_name.as_bytes()],
+        seeds = [CLAN_SEED.as_bytes(), clan_name.as_bytes()],
         bump
     )]
-    pub clan: <Box<Account<'info, Clan>>,
+    pub clan: Box<Account<'info, Clan>>,
 
     #[account(mut)]
-    pub authority:Signer<Account,'info>,
-
-    pub system_program: Program<System,'info>
-
-
+    pub authority: Signer<'info>,
+    pub system_program: Program<'info, System>
 }
-
 
 
 
