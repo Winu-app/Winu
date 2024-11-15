@@ -6,7 +6,7 @@ const CreateClan = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   return (
-    <div className="w-full h-screen py-3 flex items-center justify-center">
+    <div className="size-full py-3 flex items-center justify-center">
       <div className="p-4 rounded-lg bg-active w-72 flex flex-col gap-2">
         <div className="w-full flex items-center">
           <p className="text-xl ">Create clan</p>
