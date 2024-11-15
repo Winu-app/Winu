@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import { FiCopy } from "react-icons/fi";
+import FollowButton from "./follow-button";
+import LogoutButton from "./logout-button";
 
 const Cover = () => {
   return (
@@ -28,9 +30,7 @@ const Cover = () => {
           <button className="size-10 rounded-full bg-foreground border-active border flex items-center justify-center active:scale-95 transition-transform">
             <FiCopy size={18} />
           </button>
-          <button className="w-fit flex items-center justify-center text-black px-4 py-1 font-semibold rounded-full bg-white active:scale-95 transition-transform">
-            Follow
-          </button>
+          <LogoutButton />
         </div>
       </div>
     </div>
