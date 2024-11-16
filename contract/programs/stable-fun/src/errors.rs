@@ -4,6 +4,8 @@ use anchor_lang::prelude::error_code;
 pub enum WinuError {
     #[msg("Only 2 Co Leaders are allowed")]
     MaxCoLeaders,
+    #[msg("Only 10 members are allowed")]
+    MaxMembers,
     #[msg("Clan not found")]
     ClanNotFound,
     #[msg("Co-leader not found")]
