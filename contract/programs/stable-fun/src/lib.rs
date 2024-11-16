@@ -65,6 +65,19 @@ mod winu {
         clan.co_leaders.push(new_co);
         Ok(())
     }
+    pub fn add_clan_member(
+        ctx:Context<AddClanMember>,
+        new_member:Pubkey,
+        clan_name:String
+    ) -> Result<()>{
+        let clan = &mut ctx.accounts.clan;
+        let co_len = clan.members.len();
+        if  co_len >= 10 {
+            return err!(WinuError::MaxMembers);
+        }
+        clan.members.push(new_member);
+        Ok(())
+    }
 
     pub fn remove_co_leader(
         ctx:Context<RemoveCoLeader>,
@@ -75,6 +88,20 @@ mod winu {
         if let Some(index) = clan.co_leaders.iter().position(|&x| x == co_leader) {
             clan.co_leaders.remove(index);
             msg!("Co-leader {} removed successfully", co_leader);
+            Ok(())
+        } else {
+            return err!(WinuError::CoLeaderNotFound);
+        }
+    }
+    pub fn remove_clan_member(
+        ctx:Context<RemoveClanMember>,
+        member:Pubkey,
+        clan_name:String
+    ) -> Result<()>{
+        let clan = &mut ctx.accounts.clan;
+        if let Some(index) = clan.co_leaders.iter().position(|&x| x == member) {
+            clan.members.remove(index);
+            msg!("Member {} removed successfully", member);
             Ok(())
         } else {
             return err!(WinuError::CoLeaderNotFound);
@@ -97,9 +124,40 @@ pub struct RemoveCoLeader<'info>{
     pub authority: Signer<'info>,
     pub system_program: Program<'info, System>
 }
+
+#[derive(Accounts)]
+#[instruction(member:Pubkey,clan_name:String)]
+pub struct RemoveClanMember<'info>{
+    #[account(
+        mut,
+        seeds = [CLAN_SEED.as_bytes(), clan_name.as_bytes()],
+        bump
+    )]
+    pub clan: Box<Account<'info, Clan>>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+    pub system_program: Program<'info, System>
+}
+
 #[derive(Accounts)]
 #[instruction(new_co:Pubkey,clan_name:String)]
 pub struct AddCoLeader<'info>{
+    #[account(
+        mut,
+        seeds = [CLAN_SEED.as_bytes(), clan_name.as_bytes()],
+        bump
+    )]
+    pub clan: Box<Account<'info, Clan>>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+    pub system_program: Program<'info, System>
+}
+
+#[derive(Accounts)]
+#[instruction(new_member:Pubkey,clan_name:String)]
+pub struct AddClanMember<'info>{
     #[account(
         mut,
         seeds = [CLAN_SEED.as_bytes(), clan_name.as_bytes()],
