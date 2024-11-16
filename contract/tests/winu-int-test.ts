@@ -1,55 +1,60 @@
 import * as anchor from "@coral-xyz/anchor";
-import { SystemProgram } from "@solana/web3.js";
 import { PublicKey } from "@solana/web3.js";
 const assert = require("assert");
-const fs = require("fs");
 
 const anchorProvider = require("@project-serum/anchor");
 
-const idl = require("../target/idl/stable_fun.json");
+const idl = require("../target/idl/winu.json");
 
-const CHAINLINK_PROGRAM_ID = "HEvSKofvBgfaexv23kMabbYqxasxU3mQ4ibBMEmJWHny";
-// SOL/USD feed account
-const CHAINLINK_FEED = "99B2bTijsU6f1GCT73HmdR7HCFFjGMBcPZY6jZ96ynrR";
-const DIVISOR = 100000000;
 const keypairPath = require("../id.json");
-const STABLE_FUN_PROGRAM_ID = "7GVmoLXf5v1F1E5vcRQLe5vgjVqENTyMsJNZGsnpVZQh";
+const WINU_PROGRAM_ID = "BrTsF5GJNb4jk7jTuYFV3B8YG2cAqWUXrdsFUar5BC6z";
 
-describe("Get data from oracle feeds", () => {
-  it("Query SOL/USD Price Feed!", async () => {
+describe("Init Master", () => {
+  it("Initialize Master Account!", async () => {
     anchor.setProvider(anchor.AnchorProvider.env());
 
     // Initialize the program client with the program ID and IDL
     const program = new anchorProvider.Program(
       idl,
-      new PublicKey(STABLE_FUN_PROGRAM_ID),
+      new PublicKey(WINU_PROGRAM_ID),
       anchor.AnchorProvider.env()
     );
 
-    //create an account to store the price data
-    const priceFeedAccount = anchor.web3.Keypair.generate();
-
-    // Execute the RPC.
-    let transactionSignature = await program.methods
-      .test()
-      .accounts({
-        decimal: priceFeedAccount.publicKey,
-        chainlinkFeed: CHAINLINK_FEED,
-        chainlinkProgram: CHAINLINK_PROGRAM_ID,
-      })
-      .signers([priceFeedAccount])
-      .rpc();
-
-    // Fetch the account details of the account containing the price data
-    const latestPrice = await program.account.decimal.fetch(
-      priceFeedAccount.publicKey
+    const MASTER_SEED = process.env.MASTER || "master";
+    const authority = anchor.web3.Keypair.fromSecretKey(
+      Uint8Array.from(keypairPath)
     );
-    console.log("Price Is: " + latestPrice.value / DIVISOR);
 
-    // Ensure the price returned is a positive value
-    assert.ok(latestPrice.value / DIVISOR > 0);
+    const [masterPda, _bump] = await anchor.web3.PublicKey.findProgramAddress(
+      [Buffer.from(MASTER_SEED)],
+      program.programId
+    );
+
+    try {
+      let transactionSignature = await program.methods
+        .initMaster()
+        .accounts({
+          master: masterPda,
+          authority: authority.publicKey,
+          systemProgram: anchor.web3.SystemProgram.programId,
+        })
+        .signers([authority])
+        .rpc();
+      console.log("🚀 ~ it ~ transactionSignature:", transactionSignature);
+    } catch (e) {
+      console.log(e);
+    }
+
+    const masterRes = await program.account.master.fetch(masterPda);
+    if (masterRes) {
+      assert.ok(true);
+    } else {
+      assert.ok(false);
+    }
   });
 });
+
+
 
 describe("Register User", () => {
   it("will accept username and registers the user", async () => {
@@ -58,7 +63,7 @@ describe("Register User", () => {
     // Initialize the program client with the program ID and IDL
     const program = new anchorProvider.Program(
       idl,
-      new PublicKey(STABLE_FUN_PROGRAM_ID),
+      new PublicKey(WINU_PROGRAM_ID),
       anchor.AnchorProvider.env()
     );
 
