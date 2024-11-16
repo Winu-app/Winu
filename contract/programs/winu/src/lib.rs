@@ -22,18 +22,15 @@ mod winu {
 
     pub fn register_user(
         ctx:Context<RegisterUser>,
+        username: String,   
         image:String,       
         cover_image:String,           
-        username: String,   
-        wallet_balance: u64,  
-        my_clan:Pubkey
     ) -> Result<()>{
         let user = &mut ctx.accounts.user;
         user.username = username;
         user.cover_image = Some(cover_image);
         user.image = Some(image);
         user.wallet_balance = 0;
-        user.my_clan = Some(my_clan);
         msg!("User {} Registered Successfully", user.username);
         Ok(())
     }
@@ -41,13 +38,10 @@ mod winu {
     pub fn create_clan(
         ctx:Context<CreateClan>, 
         name:String,
-        members: [Pubkey; 10],     
-        co_leaders: [Pubkey; 2],   
      ) -> Result<()>{
         let clan = &mut ctx.accounts.clan;
         clan.name = name;
-        clan.members=members.to_vec();
-        clan.co_leaders = co_leaders.to_vec();
+        clan.leader = ctx.accounts.authority.key();
         msg!("{} Clan Created", clan.name);
         Ok(())
     }
@@ -96,7 +90,7 @@ mod winu {
     pub fn remove_clan_member(
         ctx:Context<RemoveClanMember>,
         member:Pubkey,
-        clan_name:String
+        _clan_name:String
     ) -> Result<()>{
         let clan = &mut ctx.accounts.clan;
         if let Some(index) = clan.co_leaders.iter().position(|&x| x == member) {
@@ -171,13 +165,9 @@ pub struct AddClanMember<'info>{
 }
 
 
-
-
 #[derive(Accounts)]
 #[instruction(
     name:String,
-    members: [Pubkey; 10],     
-    co_leaders: [Pubkey; 2], 
 )]
 pub struct CreateClan<'info>{
     #[account(
@@ -196,20 +186,18 @@ pub struct CreateClan<'info>{
 }
 
 #[derive(Accounts)]
-#[instruction( 
-    image:String,       
-    cover_image:String,           
-    username: String,   
-    wallet_balance: u64,
-    my_clan:Pubkey
- )]
+#[instruction(
+        username: String, 
+        image: String, 
+        cover_image: String
+    )]
 pub struct RegisterUser<'info>{
     #[account(
         init,
         seeds=[USER_SEED.as_bytes(), username.as_bytes()],
         bump,
         payer=authority,
-        space= 24 + std::mem::size_of::<User>(),
+        space = 8 + 4 + 32 + 4 + 255 + 4 + 255 + 16,
     )]
     pub user:Box<Account<'info, User>>,
 
