@@ -175,7 +175,7 @@ pub struct CreateClan<'info>{
         seeds = [CLAN_SEED.as_bytes(), name.as_bytes()],
         bump,
         payer = authority,
-        space = 16 + std::mem::size_of::<Clan>(),
+        space = 24 + 344 + 88 + 32 + 8,
     )]
     pub clan: Box<Account<'info, Clan>>,
 
