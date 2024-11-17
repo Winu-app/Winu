@@ -7,10 +7,9 @@ connect();
 export async function GET() {
   try {
     User; //load the model
-    const tournaments = await Tournament.find().populate(
-      "host",
-      "name email username isVerified image"
-    );
+    const tournaments = await Tournament.find()
+      .populate("host", "name email username isVerified image")
+      .sort({ createdAt: -1 });
     return NextResponse.json({ tournaments }, { status: 200 });
   } catch (e) {
     return NextResponse.json(
