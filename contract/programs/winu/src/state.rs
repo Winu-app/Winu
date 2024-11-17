@@ -27,7 +27,8 @@ pub struct Clan {
 
 #[account]
 pub struct Game {
-    pub name: Pubkey, 
+    pub unique_name: String,
+    pub name: String, 
     pub start_date: i64,             
     pub end_date: i64,             
     pub clans: Vec<Pubkey>,
