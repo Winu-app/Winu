@@ -102,7 +102,58 @@ mod winu {
         }
     }
 
+    pub fn create_game(
+        ctx:Context<CreateGame>,
+        name:String, 
+        unique_name:String,
+        start_date:i64, 
+        end_date:i64,
+        clans: Vec<Pubkey>,
+        is_active: bool,
+        entry_fee:u32
+     )->Result<()>{
+        let game = &mut ctx.accounts.game;
+        game.name = name;
+        game.unique_name = unique_name;
+        game.start_date = start_date;
+        game.end_date = end_date;
+        game.clans = clans;
+        game.is_active = is_active;
+        game.entry_fee = entry_fee;
+
+        Ok(())
+     }
+
+
 }
+
+#[derive(Accounts)]
+#[instruction(
+    name:String, 
+    unique_name:String,
+    start_date:i64, 
+    end_date:i64, 
+    clans:Vec<Pubkey>,
+    is_active:bool,
+    entry_fee:u32
+)]
+pub struct CreateGame<'info>{
+    #[account(
+        init,
+        seeds=[GAME_SEED.as_bytes(), unique_name.as_bytes()],
+        bump,
+        space = 32 + 8 + 8 + 804 + 1 + 32 + 32 + 8 + 4,
+        payer = authority
+    )]
+    pub game: Box<Account<'info, Game>>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+    pub system_program : Program<'info, System>
+}
+
+
+
 
 #[derive(Accounts)]
 #[instruction(new_co:Pubkey,clan_name:String)]
