@@ -23,8 +23,10 @@ describe("add co-leader to a clan", () => {
       Uint8Array.from(keypairPath)
     );
 
-    const clanName = "subhash";
-    const coLeader = "77V6Ji3Z73nPFbNZ1xA7C7apei8YcyBQCGzn3k4q2mdu";
+    const clanName = "test-clan-1";
+    const coLeader = new PublicKey(
+      "Ajy6tGiQZSpUZ5hJMCTYPeS2ox1a9Cy7ZN7zHzp9DhWQ"
+    );
 
     const [clanPda, _bump] = await anchor.web3.PublicKey.findProgramAddress(
       [Buffer.from("clan"), Buffer.from(clanName)],
@@ -33,7 +35,7 @@ describe("add co-leader to a clan", () => {
 
     // Execute the RPC.
     const tx = await program.methods
-      .addCoLeader(new PublicKey(coLeader), clanName)
+      .addCoLeader(coLeader, clanName)
       .accounts({
         clan: clanPda,
         authority: authority.publicKey,
@@ -43,8 +45,10 @@ describe("add co-leader to a clan", () => {
       .rpc();
 
     const clanRes = await program.account.clan.fetch(clanPda);
-    console.log("added coLeader " + JSON.stringify(clanRes));
+    const isCoLeaderAdded = clanRes.coLeaders
+      .map((key) => key.toBase58())
+      .includes(coLeader.toBase58());
 
-    assert.ok(clanRes.name == clanName);
+    assert.ok(isCoLeaderAdded);
   });
 });
