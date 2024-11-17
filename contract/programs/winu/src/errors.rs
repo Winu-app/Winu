@@ -2,6 +2,8 @@ use anchor_lang::prelude::error_code;
 
 #[error_code]
 pub enum WinuError {
+    #[msg("Only 25 Clans are allowed")]
+    MaxClans,
     #[msg("Only 2 Co Leaders are allowed")]
     MaxCoLeaders,
     #[msg("Only 10 members are allowed")]

@@ -120,12 +120,47 @@ mod winu {
         game.clans = clans;
         game.is_active = is_active;
         game.entry_fee = entry_fee;
+        Ok(())
+     }
 
+    pub fn add_clans(
+        ctx:Context<AddClans>,
+        game_unique_name:String,
+        clans:Vec<Pubkey>
+     )->Result<()>{
+        let game = &mut ctx.accounts.game;
+        let current_clan_count = game.clans.len();
+
+        if current_clan_count + clans.len() > 25 {
+            return err!(WinuError::MaxClans); 
+        }
+
+        game.clans.extend(clans); 
         Ok(())
      }
 
 
 }
+
+#[derive(Accounts)]
+#[instruction(
+    name:String, 
+    game_unique_name:String,
+    clans:Vec<Pubkey>,
+)]
+pub struct AddClans<'info>{
+    #[account(
+        mut,
+        seeds=[GAME_SEED.as_bytes(), game_unique_name.as_bytes()],
+        bump,
+    )]
+    pub game: Box<Account<'info, Game>>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+    pub system_program : Program<'info, System>
+}
+
 
 #[derive(Accounts)]
 #[instruction(
