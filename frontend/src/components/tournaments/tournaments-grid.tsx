@@ -20,7 +20,7 @@ const TournamentsGrid = () => {
 
   if (isError) {
     return (
-      <div className="w-full h-screen flex items-center justify-center bg-red-500 text-white">
+      <div className="w-full h-screen flex items-center justify-center text-white">
         Error loading tournaments: {error.message}
       </div>
     );
