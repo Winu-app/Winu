@@ -1,6 +1,14 @@
 import mongoose, { Schema } from "mongoose";
+import { User } from "src/types";
 
-const userSchema = new Schema(
+const userSchema = new Schema<
+  User & {
+    forgotPasswordToken: string;
+    forgotPasswordTokenExpiry: string;
+    verifyToken: string;
+    verifyTokenExpiry: string;
+  }
+>(
   {
     name: { type: String, required: [true, "Please provide a name"] },
     email: {
@@ -8,7 +16,7 @@ const userSchema = new Schema(
       required: [true, "Please provide an email"],
       unique: true,
     },
-    link: {
+    socialLink: {
       type: String,
     },
     location: {
