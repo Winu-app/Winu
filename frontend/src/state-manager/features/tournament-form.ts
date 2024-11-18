@@ -15,6 +15,7 @@ const initialState: TournamentForm = {
   name: "",
   streamLink: "",
   visibility: "PUBLIC",
+  createdBy: "",
 };
 
 const tournamentForm = createSlice({
@@ -33,6 +34,10 @@ const tournamentForm = createSlice({
       state.streamLink = action.payload.streamLink;
       state.visibility = action.payload.visibility;
       state.startDate = action.payload.startDate;
+      state.createdBy = action.payload.createdBy;
+    }),
+    setCreatedBy: create.reducer<VisibilityT>((state, action) => {
+      state.createdBy = action.payload;
     }),
     setVisibility: create.reducer<VisibilityT>((state, action) => {
       state.visibility = action.payload;
@@ -83,5 +88,6 @@ export const {
   setMatches,
   setStartDate,
   setStreamLink,
+  setCreatedBy,
 } = tournamentForm.actions;
 export default tournamentForm.reducer;

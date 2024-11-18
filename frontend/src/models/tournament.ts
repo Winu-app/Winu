@@ -12,6 +12,7 @@ const TournamentSchema = new Schema<
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     streamLink: { type: String, required: true },
+    createdBy: { type: String, required: true },
     description: { type: String },
     host: { type: Schema.Types.ObjectId, ref: "User", required: true },
     entryFee: { type: Number, required: true, default: 10 },

@@ -7,6 +7,7 @@ export type Tournament = {
   visibility: Visibility;
   image?: string;
   startDate?: Date;
+  createdBy: string;
   endDate?: Date;
   entryFee: number;
   isActive: boolean;
