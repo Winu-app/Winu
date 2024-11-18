@@ -14,10 +14,7 @@ export async function GET(
     return NextResponse.json({ message: "Clan not found" }, { status: 404 });
   }
 
-  return NextResponse.json(
-    { message: "Tournament Updated", clan },
-    { status: 201 }
-  );
+  return NextResponse.json({ clan }, { status: 201 });
 }
 
 export async function PUT(
