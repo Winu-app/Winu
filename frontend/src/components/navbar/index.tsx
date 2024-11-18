@@ -2,6 +2,7 @@ import React from "react";
 import { FaGamepad, FaUserAstronaut } from "react-icons/fa";
 import NavItem from "./nav-item";
 import { GiWallet } from "react-icons/gi";
+import { HiViewGridAdd } from "react-icons/hi";
 
 const items = [
   // {
@@ -20,6 +21,12 @@ const items = [
     name: "Wallet",
     icon: GiWallet,
     link: "/wallet",
+    iconSize: 18,
+  },
+  {
+    name: "My Tournaments",
+    icon: HiViewGridAdd,
+    link: "/my-tournaments",
     iconSize: 18,
   },
   {
