@@ -15,8 +15,9 @@ export async function POST(req: NextRequest) {
     description,
     image,
     matches,
-    host,
+    host, //mongodb uid
     isActive,
+    createdBy, // wallet address
   } = body;
 
   if (!name)
@@ -50,6 +51,11 @@ export async function POST(req: NextRequest) {
       { message: "Entry Fee is required" },
       { status: 400 }
     );
+  if (!createdBy)
+    return NextResponse.json(
+      { message: "Entry Fee is required" },
+      { status: 400 }
+    );
 
   const tournament = new Tournament({
     name,
@@ -63,6 +69,7 @@ export async function POST(req: NextRequest) {
     matches: [],
     host: "672e5565b4faf4fb87827250",
     isActive,
+    createdBy,
   });
   await tournament.save();
   return NextResponse.json(
