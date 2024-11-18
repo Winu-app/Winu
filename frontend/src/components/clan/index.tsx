@@ -8,7 +8,6 @@ import CreateClan from "./create-clan";
 const Clan = () => {
   const [showClan] = useQueryState("clan-modal", parseAsBoolean);
   const [clanOption] = useQueryState("clan-option", parseAsString);
-  console.log("🚀 ~ Clan ~ clanOption:", clanOption);
   return (
     <>
       {showClan && (
