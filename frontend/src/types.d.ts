@@ -14,3 +14,19 @@ export type Tournament = {
   host: string;
   matches: string[];
 };
+
+export type User = {
+  name: string;
+  email: string;
+  socialLink?: string;
+  location?: string;
+  username: string;
+  password?: string;
+  isVerified: boolean;
+  profileImage?: string;
+  coverImage?: string;
+  numberOfTournamentsPlayed?: string;
+  rank?: string;
+  clan?: string;
+  wallets?: string[];
+};
