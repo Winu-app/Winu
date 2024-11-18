@@ -18,6 +18,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
+
     if (!validPassword) {
       return NextResponse.json(
         { message: "Invalid password" },
@@ -36,7 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const token = jwt.sign(payload, token_secret, { expiresIn: "1d" });
 
     const res = NextResponse.json(
-      { message: "Logged In successfully!" },
+      { message: "Logged In successfully!", user },
       { status: 200 }
     );
     res.cookies.set("winu-token", token, {
