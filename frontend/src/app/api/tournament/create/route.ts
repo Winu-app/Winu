@@ -52,10 +52,7 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   if (!createdBy)
-    return NextResponse.json(
-      { message: "Entry Fee is required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: "Wallet not found" }, { status: 400 });
 
   const tournament = new Tournament({
     name,
@@ -71,6 +68,7 @@ export async function POST(req: NextRequest) {
     isActive,
     createdBy,
   });
+
   await tournament.save();
   return NextResponse.json(
     { message: "New Tournament Created", tournament },
