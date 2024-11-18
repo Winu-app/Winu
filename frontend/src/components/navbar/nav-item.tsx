@@ -21,9 +21,9 @@ const NavItem = ({
         path === link ? "bg-dark" : ""
       }`}
     >
-      <div className="absolute top-0 bg-active px-2 py-0.5 rounded-full text-xs group-hover:-top-8 transition-all opacity-0 group-hover:opacity-100 pointer-events-none">
+      <p className="absolute top-0 bg-active px-2 py-0.5 rounded-full text-xs group-hover:-top-8 transition-all opacity-0 group-hover:opacity-100 pointer-events-none text-nowrap">
         {name}
-      </div>
+      </p>
       {children}
     </Link>
   );
