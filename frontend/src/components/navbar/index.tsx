@@ -54,8 +54,6 @@ const Navbar = () => {
 
   useEffect(() => {
     if (!data) return;
-    console.log("🚀 ~ useEffect ~ data:", data);
-
     if (data.message === "token not found") {
       toast.error("Authentication failed");
       router.push("/");
