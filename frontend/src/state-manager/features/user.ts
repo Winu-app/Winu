@@ -1,18 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from "src/types";
 
-const initialState: User = {
+type UserState = User & { id: string };
+
+const initialState: UserState = {
   email: "",
   isVerified: false,
   name: "",
   username: "",
+  id: "",
 };
 
 const user = createSlice({
   initialState,
   name: "User",
   reducers: (reducer) => ({
-    setUser: reducer.reducer<User>((state, action) => {
+    setUser: reducer.reducer<UserState>((state, action) => {
       state.clan = action.payload.clan;
       state.coverImage = action.payload.coverImage;
       state.email = action.payload.email;
@@ -26,6 +29,7 @@ const user = createSlice({
       state.socialLink = action.payload.socialLink;
       state.username = action.payload.username;
       state.wallets = action.payload.wallets;
+      state.id = action.payload.id;
     }),
   }),
 });
