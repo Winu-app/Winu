@@ -30,3 +30,13 @@ export type User = {
   clan?: string;
   wallets?: string[];
 };
+
+export type Clan = {
+  name: string;
+  uniqueName: string;
+  description?: string;
+  imageUrl: string;
+  members?: string[];
+  coLeaders?: string[];
+  leader: string[];
+};
