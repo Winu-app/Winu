@@ -10,6 +10,7 @@ const clanSchema = new Schema<
 >(
   {
     name: { type: String, required: true },
+    imageUrl: { type: String },
     uniqueName: { type: String, required: true, unique: true },
     leader: { type: Schema.Types.ObjectId, ref: "User", required: true },
     coLeaders: { type: [Schema.Types.ObjectId], ref: "User" },
