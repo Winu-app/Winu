@@ -13,7 +13,6 @@ const CreateClan = () => {
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const queryClient = useQueryClient();
-  const [loading, setLoading] = useState(false);
 
   const [_, setClanOption] = useQueryState("clan-option", parseAsString);
 
@@ -22,15 +21,16 @@ const CreateClan = () => {
     queryKey: ["current-user"],
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: createClan,
     onSuccess: (res) => {
       toast.info(res.message);
-      queryClient.invalidateQueries({ queryKey: ["my-clan"] });
-      setClanOption("my-clan");
+      if (res.status == 201) {
+        queryClient.invalidateQueries({ queryKey: ["my-clan"] });
+        setClanOption("my-clan");
+      }
     },
     onError: (error) => {
-      setLoading(false);
       toast.error(error.message);
     },
   });
@@ -68,8 +68,8 @@ const CreateClan = () => {
           }}
         />
         <button
-          className="px-4 py-2 bg-white rounded-lg text-black font-semibold active:scale-95 transition-transform mt-4 disabled:cursor-not-allowed disabled:scale-100"
-          disabled={loading}
+          className="px-4 py-2 bg-white rounded-lg text-black font-semibold active:scale-95 transition-transform mt-4 disabled:cursor-not-allowed disabled:scale-100 disabled:bg-gray-300"
+          disabled={isPending}
           onClick={() => {
             mutate({
               imageUrl,
@@ -82,7 +82,7 @@ const CreateClan = () => {
             });
           }}
         >
-          Create Clan
+          {isPending ? "Loading..." : "Create Clan"}
         </button>
       </div>
     </div>
