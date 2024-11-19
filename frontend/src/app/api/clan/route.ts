@@ -5,7 +5,7 @@ import { connect } from "../../../db/config";
 connect();
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, uniqueName, leader, coLeaders, members } = body;
+  const { name, uniqueName, leader, coLeaders, members, imageUrl } = body;
 
   if (!name)
     return NextResponse.json({ message: "Name is required" }, { status: 400 });
@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
     leader,
     coLeaders: coLeaders || [],
     members: members || [],
+    imageUrl,
   });
   await clan.save();
   return NextResponse.json(
