@@ -25,7 +25,7 @@ const CreateClan = () => {
     mutationFn: createClan,
     onSuccess: (res) => {
       toast.info(res.message);
-      if (res.status == 201) {
+      if (res.message == "New Clan Created") {
         queryClient.invalidateQueries({ queryKey: ["my-clan"] });
         setClanOption("my-clan");
       }
