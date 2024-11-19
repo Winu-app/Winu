@@ -1,6 +1,13 @@
 import mongoose, { Schema } from "mongoose";
+import { Clan } from "src/types";
 
-const clanSchema = new Schema(
+const clanSchema = new Schema<
+  Omit<Clan, "leader" | "coLeaders" | "members"> & {
+    leader: Schema.Types.ObjectId;
+    coLeaders: Schema.Types.ObjectId[];
+    members: Schema.Types.ObjectId[];
+  }
+>(
   {
     name: { type: String, required: true },
     uniqueName: { type: String, required: true, unique: true },
