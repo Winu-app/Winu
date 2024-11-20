@@ -1,4 +1,5 @@
 "use client";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React, { useTransition } from "react";
 import { toast } from "sonner";
@@ -6,6 +7,8 @@ import { toast } from "sonner";
 const UserProfile = () => {
   const [loading, startTransition] = useTransition();
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const logout = () => {
     startTransition(async () => {
       const domain = process.env.DOMAIN;
@@ -13,6 +16,9 @@ const UserProfile = () => {
         method: "POST",
       });
       if (res.status === 200) {
+        queryClient.invalidateQueries({
+          queryKey: ["current-user", "my-clan", "my-tournament-list"],
+        });
         router.replace("/");
         toast.success("Logged out!");
       }
