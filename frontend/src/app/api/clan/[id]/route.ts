@@ -8,7 +8,19 @@ export async function GET(
   req: NextRequest,
   { params: { id } }: { params: { id: string } }
 ) {
-  const clan = await Clan.findById(id);
+  const clan = await Clan.findById(id)
+    .populate({
+      path: "leader",
+      select: "username imageUrl",
+    })
+    .populate({
+      path: "coLeaders",
+      select: "username imageUrl",
+    })
+    .populate({
+      path: "members",
+      select: "username imageUrl",
+    });
 
   if (!clan) {
     return NextResponse.json({ message: "Clan not found" }, { status: 404 });
