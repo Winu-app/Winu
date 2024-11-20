@@ -3,16 +3,22 @@ import React, { useTransition } from "react";
 import { logout } from "../../actions/user/logout";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const LogoutButton = () => {
   const [loading, startTransition] = useTransition();
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const handleLogout = () => {
     startTransition(async () => {
       const res = await logout();
       if (res.message === "Logged out successfully!") {
-        router.replace("/");
-        toast.info(res.message);
+        queryClient.invalidateQueries({
+          queryKey: ["current-user", "my-clan", "my-tournament-list"],
+        });
+        // router.replace("/");
+        // toast.info(res.message);
       }
     });
   };
