@@ -1,39 +1,50 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ClanImage from "./clan-image";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { createClan } from "src/actions/clan/create-clan";
 import { getUserWithAuthToken } from "src/actions/user/get-user-with-auth-token";
-import { parseAsString, useQueryState } from "nuqs";
+import { getClanById } from "src/actions/clan/get-clan-by-id";
 
 const CreateClan = () => {
   const [name, setName] = useState("");
   const [uniqueName, setUniqueName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const queryClient = useQueryClient();
+  const qc = useQueryClient();
 
-  const [_, setClanOption] = useQueryState("clan-option", parseAsString);
-
-  const { data: user, isLoading: userLoading } = useQuery({
+  const { data: user } = useQuery({
     queryFn: () => getUserWithAuthToken(),
     queryKey: ["current-user"],
   });
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, data, reset } = useMutation({
     mutationFn: createClan,
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       toast.info(res.message);
-      if (res.message == "New Clan Created") {
-        queryClient.invalidateQueries({ queryKey: ["my-clan"] });
-        setClanOption("my-clan");
-      }
+    },
+    onSettled: async () => {
+      await qc.invalidateQueries({
+        queryKey: ["current-user"],
+      });
     },
     onError: (error) => {
       toast.error(error.message);
     },
   });
+
+  useQuery({
+    queryKey: ["my-clan"],
+    queryFn: () => getClanById(data?.clan?._id),
+    enabled: !!data?.clan?._id,
+  });
+
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, []);
 
   return (
     <div className="size-full py-3 flex items-start justify-start">
