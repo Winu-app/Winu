@@ -5,6 +5,7 @@ import TournamentCard from "../tournaments/tournament-card";
 import { getTournamentsByUserId } from "src/actions/tournament/get-tournaments-by-user-id";
 import { getUserWithAuthToken } from "src/actions/user/get-user-with-auth-token";
 import Link from "next/link";
+import SignIn from "../ui/auth";
 
 const MyTournaments = () => {
   const { data: user, isLoading: userLoading } = useQuery({
@@ -14,7 +15,16 @@ const MyTournaments = () => {
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ["my-tournament-list"],
     queryFn: () => getTournamentsByUserId(user.user._id),
+    enabled: !!user?.user?._id,
   });
+
+  if (!userLoading && !user?.user?._id) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center flex-col gap-4">
+        <SignIn />
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
