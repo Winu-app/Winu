@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Clan from "../../../models/clan";
+import User from "../../../models/user";
 import { connect } from "../../../db/config";
 
 connect();
@@ -38,6 +39,8 @@ export async function POST(req: NextRequest) {
     imageUrl,
   });
   await clan.save();
+  await User.findByIdAndUpdate(leader, { clan: clan._id });
+
   return NextResponse.json(
     { message: "New Clan Created", clan },
     { status: 201 }
