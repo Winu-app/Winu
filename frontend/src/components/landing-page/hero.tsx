@@ -10,6 +10,7 @@ import {
   GiWhistle,
   GiMachineGun,
   GiSwordsEmblem,
+  GiSentryGun,
 } from "react-icons/gi";
 import { IoLogoGameControllerB } from "react-icons/io";
 import { TbSwords } from "react-icons/tb";
@@ -76,13 +77,22 @@ const Hero = () => {
             </p>
           </div>
 
-          <Link
-            href="/tournaments"
-            className="px-6 py-2 rounded-xl bg-gray-100 text-black font-semibold active:scale-95 transition-transform flex items-center justify-center gap-2"
-          >
-            Explore
-            <GiShotgunRounds size={24} />
-          </Link>
+          <div className="flex gap-4 items-center">
+            <Link
+              href="/tournaments"
+              className="px-6 py-2 rounded-xl bg-gray-100 text-black font-semibold active:scale-95 transition-transform flex items-center justify-center gap-2"
+            >
+              Explore
+              <GiShotgunRounds size={24} />
+            </Link>
+            <Link
+              href="/login"
+              className="px-6 py-2 rounded-xl bg-gray-100 text-black font-semibold active:scale-95 transition-transform flex items-center justify-center gap-2"
+            >
+              Login
+              <GiSentryGun size={24} />
+            </Link>
+          </div>
         </div>
         <div
           className={` overflow-hidden relative w-[calc(100px*5)] max-md:w-[calc(50px*5)] before:bg-gradient-linear-to-r before:h-full before:w-[15%] before:z-10 before:absolute before:-right-4 before:top-0 after:absolute after:w-[15%] after:h-full after:bg-gradient-linear-to-l after:z-10 after:top-0 after:-left-4 whitespace-nowrap flex items-center h-5 ${styles.slide_wrap}`}
