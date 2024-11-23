@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import Clan from "../../../../models/clan";
-import { connect } from "../../../../db/config";
+import Clan from "src/models/clan";
+import { connect } from "src/db/config";
 
 connect();
 
