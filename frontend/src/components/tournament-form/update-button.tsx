@@ -27,7 +27,7 @@ const UpdateButton = () => {
 
   return (
     <button
-      className="bg-white px-6 py-2 rounded-lg text-black font-semibold mt-10 active:scale-95 transition-transform disabled:scale-100 disabled:bg-gray-400"
+      className="bg-white px-6 py-2 rounded-lg text-black font-semibold mt-4 active:scale-95 transition-transform disabled:scale-100 disabled:bg-gray-400"
       onClick={() => mutation.mutate({ tournament, id: id.toString() })}
       disabled={mutation.isPending}
     >
