@@ -10,16 +10,22 @@ const TournamentCard = ({
   name,
   host,
   isActive,
+  type,
 }: {
   image: string;
   _id: string;
   name: string;
   host: any;
   isActive: boolean;
+  type: "MY_TOURNAMENTS" | "ALL_TOURNAMENTS";
 }) => {
   return (
     <Link
-      href={`/tournaments/${_id}`}
+      href={
+        type === "ALL_TOURNAMENTS"
+          ? `/tournaments/${_id}`
+          : `/tournament/edit/${_id}`
+      }
       className="relative border rounded-lg border-active shrink-0 no-scrollbar h-full w-full bg-foreground flex flex-col items-center overflow-hidden cursor-pointer"
     >
       <div className="w-full h-60 rounded-t-lg flex items-center justify-center">
