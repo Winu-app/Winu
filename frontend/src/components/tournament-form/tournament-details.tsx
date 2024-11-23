@@ -44,7 +44,7 @@ const TournamentDetails = () => {
   return (
     <div className="flex gap-10">
       <TournamentImage />
-      <div className="size-full flex flex-col gap-2 pb-20">
+      <div className="size-full flex flex-col gap-2">
         <Visibility />
         <TournamentName />
         <StreamLink />
