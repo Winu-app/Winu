@@ -45,10 +45,17 @@ const TournamentCard = ({
         <div className="w-full items-start justify-between text-xs flex flex-col">
           <div className="flex size-full justify-between">
             <p className="text-lg font-semibold">{name}</p>
-            <div className="flex items-center gap-1 text-green-400">
-              <div className="size-2 rounded-full bg-green-500 animate-pulse" />
-              <p>live</p>
-            </div>
+            {isActive ? (
+              <div className="flex items-center gap-1 text-green-400">
+                <div className="size-2 rounded-full bg-green-500 animate-pulse" />
+                <p>live</p>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1 text-orange-400">
+                <div className="size-2 rounded-full bg-orange-500" />
+                <p>closed</p>
+              </div>
+            )}
           </div>
           <p className="text-xs hover:underline hover:text-purple w-fit">
             @{host?.username}
