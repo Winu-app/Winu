@@ -12,8 +12,8 @@ export async function GET(
     // Find clans where 'name' or 'uniqueName' matches the search string
     const clan = await Clan.find({
       $or: [
-        { name: { $regex: name, $options: "i" } }, // Case-insensitive match for 'name'
-        { uniqueName: { $regex: name, $options: "i" } }, // Case-insensitive match for 'uniqueName'
+        { name: { $regex: name, $options: "i" } },
+        { uniqueName: { $regex: name, $options: "i" } },
       ],
     });
 
