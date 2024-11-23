@@ -30,6 +30,7 @@ const TournamentsGrid = () => {
     <div className="w-[75%] h-full grid [grid-template-columns:repeat(auto-fill,minmax(310px,1fr))] [grid-auto-rows:220px] px-10 py-12 gap-4 overflow-y-scroll custom-scrollbar pb-52">
       {data?.tournaments?.map((tournament: any) => (
         <TournamentCard
+          type="ALL_TOURNAMENTS"
           name={tournament.name}
           host={tournament.host}
           isActive={tournament.isActive}
