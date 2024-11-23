@@ -5,13 +5,18 @@ interface FetchSearchParams {
   query: string;
 }
 
-// Fetch function for API
 const fetchSearchResults = async <T>({
   url,
   query,
 }: FetchSearchParams): Promise<T> => {
-  if (!query) return [] as unknown as T; // Return an empty array if the query is empty
-  const response = await fetch(`${url}?q=${encodeURIComponent(query)}`);
+  if (!query) return [] as unknown as T;
+  const domain = process.env.DOMAIN || "http://localhost:3000/";
+  console.log("🚀 ~ domain:", domain);
+  console.log("🚀 ~ url:", url);
+
+  const response = await fetch(
+    `${domain}/${url}?q=${encodeURIComponent(query)}`
+  );
   if (!response.ok) throw new Error("Failed to fetch");
   return response.json();
 };
@@ -21,6 +26,6 @@ export const useSearch = <T>(url: string, debouncedQuery: string) => {
   return useQuery({
     queryKey: ["search", url, debouncedQuery],
     queryFn: () => fetchSearchResults<T>({ url, query: debouncedQuery }),
-    enabled: !!debouncedQuery, // Only fetch when debouncedQuery is not empty
+    enabled: !!debouncedQuery,
   });
 };
