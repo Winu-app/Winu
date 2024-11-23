@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const SignIn = () => {
+const Auth = () => {
   return (
     <div className="size-full flex flex-col items-center justify-center gap-8">
       <p className="text-xl font-semibold">User not found!</p>
@@ -23,4 +23,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Auth;
