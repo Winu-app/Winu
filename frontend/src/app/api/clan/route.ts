@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import Clan from "../../../models/clan";
-import User from "../../../models/user";
-import { connect } from "../../../db/config";
+import Clan from "src/models/clan";
+import User from "src/models/user";
+import { connect } from "src/db/config";
 
 connect();
 export async function POST(req: NextRequest) {
