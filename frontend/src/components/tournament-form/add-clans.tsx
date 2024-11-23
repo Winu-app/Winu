@@ -10,7 +10,10 @@ const AddClans = () => {
   const debouncedSearch = useDebounce<string>(searchString, 500);
   const pathname = usePathname();
 
-  const { data, isLoading, error } = useSearch("/api/clan", debouncedSearch);
+  const { data, isLoading, error } = useSearch(
+    `/api/clan/search/${debouncedSearch}`,
+    debouncedSearch
+  );
 
   if (pathname.split("/")[2] !== "edit") {
     return <></>;
@@ -18,7 +21,7 @@ const AddClans = () => {
   return (
     <div className="w-full min-h-32 flex flex-col gap-4 pb-96">
       <h3 className="text-xl font-semibold">Add clans</h3>
-      <div className="w-full flex gap-4 items-center">
+      <div className="w-full flex gap-4 items-center relative">
         <input
           onChange={(e) => setSearchString(e.target.value)}
           value={searchString}
@@ -28,6 +31,7 @@ const AddClans = () => {
         <button className="size-12 flex items-center justify-center rounded-full text-white border border-active shrink-0 transition-transform active:scale-95">
           <IoSearch size={20} />
         </button>
+        <div className="absolute left-0 top-12">{JSON.stringify(data)}</div>
       </div>
     </div>
   );
