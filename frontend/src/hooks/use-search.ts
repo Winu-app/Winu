@@ -22,7 +22,7 @@ const fetchSearchResults = async <T>({
 };
 
 // useSearch hook
-export const useSearch = <T>(url: string, debouncedQuery: string) => {
+export const useSearch = <T>(url: string, debouncedQuery: string): any => {
   return useQuery({
     queryKey: ["search", url, debouncedQuery],
     queryFn: () => fetchSearchResults<T>({ url, query: debouncedQuery }),
