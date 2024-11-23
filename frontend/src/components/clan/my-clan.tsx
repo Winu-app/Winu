@@ -16,11 +16,7 @@ const MyClan = () => {
     queryFn: () => getClanById(user?.user?.clan),
     enabled: !!user?.user,
   });
-  useEffect(() => {
-    if (!data) return;
-    console.log(data);
-    console.log(user, user);
-  }, [data]);
+
   return (
     <div className="size-full py-3">
       {isLoading && (
