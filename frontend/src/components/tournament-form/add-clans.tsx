@@ -38,7 +38,7 @@ const AddClans = () => {
           )}
         </button>
         {data && (
-          <div className="absolute left-0 top-12 flex flex-col bg-active rounded-lg max-h-80 h-fit overflow-y-scroll custom-scrollbar">
+          <div className="absolute left-0 top-12 flex flex-col bg-[#202020] rounded-lg max-h-80 h-fit overflow-y-scroll custom-scrollbar">
             {data?.clan.map(({ imageUrl, uniqueName, name }: any) => {
               return (
                 <ClanSearchCard

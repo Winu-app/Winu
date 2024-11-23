@@ -11,8 +11,11 @@ const ClanSearchCard = ({
   name: string;
 }) => {
   return (
-    <div className="w-80 h-fit flex items-center gap-3 hover:bg-[#5f5f5f] rounded-lg py-2 px-1 transition-colors">
-      <div className="size-10 rounded-full flex items-center justify-center">
+    <div
+      className="w-80 h-fit flex items-center gap-3 hover:bg-active rounded-lg py-2 px-1 transition-colors cursor-pointer"
+      data-clan={uniqueName}
+    >
+      <div className="size-10 rounded-full flex items-center justify-center shrink-0">
         {!imageUrl && (
           <Logo className="size-full border rounded-full border-active" />
         )}
@@ -22,7 +25,7 @@ const ClanSearchCard = ({
             alt={name}
             width={1}
             height={1}
-            className="size-full object-cover"
+            className="size-full object-cover border rounded-full border-active"
           />
         )}
       </div>
