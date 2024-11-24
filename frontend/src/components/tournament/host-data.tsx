@@ -41,7 +41,8 @@ const HostData = ({
         <div className="size-full flex flex-col justify-center">
           <p className="text-xl font-semibold">@{host}</p>
           <Link
-            href={streamLink}
+            rel="noopener noreferrer"
+            href={streamLink || "#"}
             target="_blank"
             className="text-sm text-gray-400 hover:underline hover:text-purple flex gap-2 items-center w-fit"
           >
