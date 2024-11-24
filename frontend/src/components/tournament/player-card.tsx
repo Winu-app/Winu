@@ -15,7 +15,9 @@ const PlayerCard = ({
   return (
     <div
       className="flex gap-2 flex-col items-center cursor-pointer"
-      data-player={_id}
+      data-player-id={_id}
+      data-player-username={username}
+      data-player-imageUrl={imageUrl}
     >
       <div className="size-12 rounded-full overflow-hidden border border-active flex items-center justify-center">
         <Logo className="size-full" />
