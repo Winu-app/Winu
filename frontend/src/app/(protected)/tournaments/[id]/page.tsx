@@ -1,5 +1,5 @@
 import React from "react";
-import Tournament from "../../../../components/tournament";
+import Tournament from "src/components/tournament";
 
 const TournamentPage = () => {
   return <Tournament />;
