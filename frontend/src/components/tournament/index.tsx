@@ -2,7 +2,7 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getTournamentById } from "../../actions/tournament/get-tournament-by-id";
+import { getTournamentById } from "src/actions/tournament/get-tournament-by-id";
 import Header from "./header";
 import MyTeam from "./my-team";
 import HostData from "./host-data";
