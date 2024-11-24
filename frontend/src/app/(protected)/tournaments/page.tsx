@@ -1,4 +1,4 @@
-import Tournaments from "../../../components/tournaments";
+import Tournaments from "src/components/tournaments";
 import React from "react";
 
 const TournamentPage = () => {
