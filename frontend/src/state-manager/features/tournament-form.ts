@@ -11,7 +11,7 @@ const initialState: TournamentForm = {
   entryFee: 0,
   host: "",
   isActive: true,
-  matches: [],
+  clans: [],
   name: "",
   streamLink: "",
   visibility: "PUBLIC",
@@ -29,7 +29,7 @@ const tournamentForm = createSlice({
       state.host = action.payload.host;
       state.image = action.payload.image;
       state.isActive = action.payload.isActive;
-      state.matches = action.payload.matches;
+      state.clans = action.payload.clans;
       state.name = action.payload.name;
       state.streamLink = action.payload.streamLink;
       state.visibility = action.payload.visibility;
@@ -63,8 +63,8 @@ const tournamentForm = createSlice({
     setImage: create.reducer<string>((state, action) => {
       state.image = action.payload;
     }),
-    setMatches: create.reducer<string[]>((state, action) => {
-      state.matches = action.payload;
+    setClans: create.reducer<string[]>((state, action) => {
+      state.clans = action.payload;
     }),
     setHost: create.reducer<string>((state, action) => {
       state.host = action.payload;
@@ -85,7 +85,7 @@ export const {
   setHost,
   setImage,
   setIsActive,
-  setMatches,
+  setClans,
   setStartDate,
   setStreamLink,
   setCreatedBy,
