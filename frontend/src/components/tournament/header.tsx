@@ -7,11 +7,13 @@ const Header = ({
   name,
   description,
   entryFee,
+  isActive,
 }: {
   image: string;
   name: string;
   description: string;
   entryFee: string;
+  isActive: boolean;
 }) => {
   return (
     <div className="w-full h-60 overflow-hidden rounded-lg bg-active relative shrink-0">
@@ -21,7 +23,7 @@ const Header = ({
           alt="tournament"
           width={1}
           height={1}
-          className="size-full object-cover"
+          className="size-full object-cover border border-active"
         />
       ) : (
         <Logo className="size-full" />
@@ -30,17 +32,19 @@ const Header = ({
         <div className="w-full flex items-center justify-between">
           <div>
             <h3 className="text-2xl font-semibold">{name}</h3>
-            <p className="text-xs text-gray-400 w-[70%]">
-              {description} Lorem ipsum, dolor sit amet consectetur adipisicing
-              elit. Magni atque aliquam dolores dolorem vel delectus deleniti
-              fugiat praesentium. Accusamus sed doloribus qui magnam quaerat
-              eius deleniti possimus debitis dolor commodi.
-            </p>
+            <p className="text-xs text-gray-400 w-[70%]">{description}</p>
           </div>
-          <div className="flex items-center gap-1 text-green-400">
-            <div className="size-2 rounded-full bg-green-500 animate-pulse" />
-            <p>live</p>
-          </div>
+          {isActive ? (
+            <div className="flex items-center gap-1 text-green-400">
+              <div className="size-2 rounded-full bg-green-500 animate-pulse" />
+              <p>live</p>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1 text-orange-400">
+              <div className="size-2 rounded-full bg-orange-500 animate-pulse" />
+              <p>closed</p>
+            </div>
+          )}
         </div>
         <div className="w-full items-end justify-end flex font-semibold">
           Entry Fee:

@@ -18,8 +18,8 @@ export async function GET(
       .populate({
         path: "clans", // Populate the 'clans' array
         populate: [
-          { path: "leader" }, // Populate the 'leader' field in each clan
-          { path: "members" }, // Populate the 'members' array in each clan
+          { path: "leader", select: "username profileImage" }, // Populate the 'leader' field in each clan
+          { path: "members", select: "username profileImage" }, // Populate the 'members' array in each clan
         ],
       });
     return NextResponse.json({ tournament }, { status: 200 });
