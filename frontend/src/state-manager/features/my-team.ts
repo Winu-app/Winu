@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export type MyTeam = {
-  userName: string;
+  username: string;
   imageUrl?: string;
   _id: string;
 };
