@@ -5,15 +5,17 @@ const ClanSearchCard = ({
   imageUrl,
   uniqueName,
   name,
+  id,
 }: {
   imageUrl: string;
   uniqueName: string;
   name: string;
+  id: string;
 }) => {
   return (
     <div
       className="w-80 h-fit flex items-center gap-3 hover:bg-active rounded-lg py-2 px-1 transition-colors cursor-pointer"
-      data-clan={uniqueName}
+      data-clan={id}
     >
       <div className="size-10 rounded-full flex items-center justify-center shrink-0">
         {!imageUrl && (
