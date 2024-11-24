@@ -6,6 +6,7 @@ import { getTournamentById } from "../../actions/tournament/get-tournament-by-id
 import Header from "./header";
 import MyTeam from "./my-team";
 import HostData from "./host-data";
+import Clans from "./clans";
 
 const TournamentCard = () => {
   const { id } = useParams();
@@ -27,13 +28,14 @@ const TournamentCard = () => {
     );
 
   return (
-    <div className="w-full h-screen px-24 py-4 flex gap-10 overflow-y-scroll custom-scrollbar">
-      <div className="size-full flex flex-col gap-2 ">
+    <div className="size-full px-24 py-4 flex gap-10">
+      <div className="w-full min-h-screen h-fit flex flex-col gap-2 pb-60">
         <Header
           image={data?.tournament?.image}
           name={data?.tournament?.name}
           description={data?.tournament?.description}
           entryFee={data?.tournament?.entryFee}
+          isActive={data?.tournament?.isActive}
         />
         <HostData
           startDate={data?.tournament?.startDate}
@@ -42,6 +44,7 @@ const TournamentCard = () => {
           streamLink={data?.tournament?.streamLink}
           hostImage={data?.tournament?.host.image}
         />
+        <Clans tournamentId={id.toString()} />
       </div>
       <MyTeam />
     </div>
