@@ -3,6 +3,8 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getClansByTournamentId } from "src/actions/tournament/get-clans-by-tournament-id";
 import ClanCard, { ClanCardProps } from "./clan-card";
+import { useDispatch } from "react-redux";
+import { addPlayer } from "src/state-manager/features/my-team";
 
 const Clans = ({ tournamentId }: { tournamentId: string }) => {
   const { isLoading, error, data } = useQuery({
@@ -10,11 +12,25 @@ const Clans = ({ tournamentId }: { tournamentId: string }) => {
     queryFn: () => getClansByTournamentId(tournamentId),
   });
 
+  const dispatch = useDispatch();
+
   const handleClick = (e: React.MouseEvent) => {
-    const target = e.target as HTMLElement;
-    const playerId = target
-      .closest("[data-player]")
-      ?.getAttribute("data-player");
+    const target = (e.target as HTMLElement).closest("[data-player]");
+
+    const playerId = target?.getAttribute("data-player-id");
+    const username = target?.getAttribute("data-player-username");
+    const imageUrl = target?.getAttribute("data-player-imageUrl");
+
+    if (!playerId) return;
+    if (!username) return;
+
+    dispatch(
+      addPlayer({
+        _id: playerId,
+        username,
+        imageUrl: imageUrl || undefined,
+      })
+    );
   };
   return (
     <div
