@@ -4,7 +4,7 @@ import { Tournament } from "../types";
 const TournamentSchema = new Schema<
   Omit<Tournament, "host" | "matches"> & {
     host: Schema.Types.ObjectId;
-    matches: Schema.Types.ObjectId[];
+    clans: Schema.Types.ObjectId[];
   }
 >(
   {
@@ -19,7 +19,7 @@ const TournamentSchema = new Schema<
     visibility: { type: String, default: "PUBLIC" },
     image: { type: String },
     isActive: { type: Boolean, default: true },
-    matches: { type: [Schema.Types.ObjectId], ref: "Match", required: true },
+    clans: { type: [Schema.Types.ObjectId], ref: "Clan", required: true },
   },
   { timestamps: true }
 );

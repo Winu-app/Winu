@@ -12,7 +12,7 @@ export type Tournament = {
   entryFee: number;
   isActive: boolean;
   host: string;
-  matches: string[];
+  clans: string[];
 };
 
 export type User = {
