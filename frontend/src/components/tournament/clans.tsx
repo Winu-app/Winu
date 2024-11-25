@@ -3,26 +3,49 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getClansByTournamentId } from "src/actions/tournament/get-clans-by-tournament-id";
 import ClanCard, { ClanCardProps } from "./clan-card";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPlayer } from "src/state-manager/features/my-team";
+import { RootState } from "src/state-manager/store";
+import { toast } from "sonner";
 
 const Clans = ({ tournamentId }: { tournamentId: string }) => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["tournament-clans", tournamentId],
     queryFn: () => getClansByTournamentId(tournamentId),
   });
+  const { players: myTeamPlayers } = useSelector(
+    (state: RootState) => state.myTeam
+  );
 
   const dispatch = useDispatch();
 
   const handleClick = (e: React.MouseEvent) => {
-    const target = (e.target as HTMLElement).closest("[data-player]");
+    const target = e.target as HTMLElement;
 
-    const playerId = target?.getAttribute("data-player-id");
-    const username = target?.getAttribute("data-player-username");
-    const imageUrl = target?.getAttribute("data-player-imageUrl");
+    const playerId = target
+      ?.closest("[data-player-id]")
+      ?.getAttribute("data-player-id");
+    const username = target
+      ?.closest("[data-player-username]")
+      ?.getAttribute("data-player-username");
+    const imageUrl = target
+      ?.closest("[data-player-id]")
+      ?.getAttribute("data-player-imageUrl");
+
+    console.log("playerId", playerId);
+    console.log("username", username);
+    console.log("imageUrl", imageUrl);
 
     if (!playerId) return;
     if (!username) return;
+
+    const index = myTeamPlayers.findIndex(({ _id }) => _id === playerId);
+    console.log("🚀 ~ handleClick ~ index:", index);
+
+    if (index >= 0) {
+      toast.error("Player already Added!");
+      return;
+    }
 
     dispatch(
       addPlayer({
