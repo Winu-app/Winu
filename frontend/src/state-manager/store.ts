@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import TournamentForm from "./features/tournament-form";
-import MyTeam from "src/components/tournament/my-team";
+import tournamentForm from "./features/tournament-form";
+import myTeam from "./features/my-team";
 
-const reducer = combineReducers({ TournamentForm, MyTeam });
+const reducer = combineReducers({ tournamentForm, myTeam });
 
 export const store = configureStore({
   reducer,
