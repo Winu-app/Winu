@@ -29,6 +29,8 @@ export type User = {
   rank?: string;
   clan?: string;
   wallets?: string[];
+  depositAmount?: number;
+  winningAmount?: number;
 };
 
 export type Clan = {

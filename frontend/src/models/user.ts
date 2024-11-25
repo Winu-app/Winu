@@ -41,6 +41,14 @@ const userSchema = new Schema<
     coverImage: {
       type: String,
     },
+    depositAmount: {
+      type: Number,
+      default: 0,
+    },
+    winningAmount: {
+      type: Number,
+      default: 0,
+    },
     numberOfTournamentsPlayed: { type: Number, default: 0 },
     rank: { type: Number, default: 0 },
     clan: { type: Schema.Types.ObjectId },
