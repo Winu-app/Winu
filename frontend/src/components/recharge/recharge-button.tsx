@@ -15,7 +15,7 @@ const RechargeButton = () => {
 
   return (
     <button
-      className="w-full py-2 bg-white text-black rounded-lg font-semibold"
+      className="w-full py-2 bg-white text-black rounded-lg font-semibold active:scale-95 transition-transform"
       onClick={() => {
         if (!Number(depositAmount)) {
           toast.error("Please enter valid amount");
