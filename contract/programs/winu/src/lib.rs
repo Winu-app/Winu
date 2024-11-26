@@ -1,9 +1,10 @@
 use anchor_lang::prelude::*;
-
-mod state;
+use solana_program::program::invoke;
+use solana_program::system_instruction;
 mod constants;
 mod errors;
-use crate::{constants::*, state::*, errors::*};
+mod state;
+use crate::{constants::*, errors::*, state::*};
 
 declare_id!("BrTsF5GJNb4jk7jTuYFV3B8YG2cAqWUXrdsFUar5BC6z");
 
@@ -11,71 +12,113 @@ declare_id!("BrTsF5GJNb4jk7jTuYFV3B8YG2cAqWUXrdsFUar5BC6z");
 mod winu {
     use super::*;
 
+    // Initialize the master account with an authority
     pub fn init_master(ctx: Context<InitMaster>) -> Result<()> {
         let master = &mut ctx.accounts.master;
         master.authority = ctx.accounts.authority.key();
+        Ok(())
+    }
+
+    pub fn init_vault(ctx: Context<InitVault>, _user_id: String) -> Result<()> {
+        let vault = &mut ctx.accounts.vault;
+        vault.balance = 0;
+        Ok(())
+    }
+
+    // Deposit SOL to the vault (contract)
+    pub fn deposit(ctx: Context<Deposit>, amount: u64) -> Result<()> {
+        let ix = system_instruction::transfer(
+            &ctx.accounts.user.key(),
+            &ctx.accounts.vault.key(),
+            amount,
+        );
+        invoke(
+            &ix,
+            &[
+                ctx.accounts.user.to_account_info(),
+                ctx.accounts.vault.to_account_info(),
+                ctx.accounts.system_program.to_account_info(),
+            ],
+        )?;
+
+        let vault = &mut ctx.accounts.vault;
+
+        vault.balance += amount;
 
         Ok(())
     }
 
-    pub fn create_tournament(
-        ctx:Context<CreateTournament>,
-        name:String, 
-        id:String,
-        is_active: bool,
-        entry_fee:u32
-     )->Result<()>{
-        let tournament = &mut ctx.accounts.tournament;
-        tournament.name = name;
-        tournament.id = id;
-        tournament.is_active = is_active;
-        tournament.entry_fee = entry_fee;
+    // Withdraw SOL from the vault (contract) to the user's wallet
+    pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
+        let vault = &mut ctx.accounts.vault;
+        let ix = system_instruction::transfer(
+            &ctx.accounts.vault.key(),
+            &ctx.accounts.authority.key(),
+            amount,
+        );
+        invoke(
+            &ix,
+            &[
+                ctx.accounts.vault.to_account_info(),
+                ctx.accounts.authority.to_account_info(),
+                ctx.accounts.system_program.to_account_info(),
+            ],
+        )?;
+        
+
         Ok(())
-     }
-
-     pub fn place_bid(ctx:Context<PlaceBid>,)->Result<()>{
-
-        Ok(())
-     }
+    }
 }
-
-#[derive(Accounts)]
-#[instruction(
-    name:String, 
-    id:String,
-    is_active: bool,
-    entry_fee:u32
-)]
-pub struct CreateTournament<'info>{
-    #[account(
-        init,
-        seeds=[TOURNAMENT_SEED.as_bytes(), id.as_bytes()],
-        bump,
-        space = 32 + 8 + 8 + 804 + 1 + 32 + 32 + 8 + 4,
-        payer = authority
-    )]
-    pub tournament: Box<Account<'info, Tournament>>,
-
-    #[account(mut)]
-    pub authority: Signer<'info>,
-    pub system_program : Program<'info, System>
-}
-
-
 
 #[derive(Accounts)]
 pub struct InitMaster<'info> {
     #[account(
-        init, 
-        seeds=[MASTER_SEED.as_bytes()],
+        init,
+        seeds = [MASTER_SEED.as_bytes()],
         bump,
         payer = authority,
-        space= 8+ std::mem::size_of::<Master>(),
+        space = 8 + std::mem::size_of::<Master>(),
     )]
     pub master: Box<Account<'info, Master>>,
-
     #[account(mut)]
     pub authority: Signer<'info>,
     pub system_program: Program<'info, System>,
 }
 
+#[derive(Accounts)]
+#[instruction(user_id:String)]
+pub struct InitVault<'info> {
+    #[account(
+        init,
+        seeds = [VAULT_SEED.as_bytes(),user_id.as_bytes()],
+        bump,
+        payer = authority,
+        space = 8 + std::mem::size_of::<Vault>(),
+    )]
+    pub vault: Box<Account<'info, Vault>>,
+    #[account(mut)]
+    pub authority: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct Deposit<'info> {
+    #[account(mut)]
+    pub user: Signer<'info>,
+    #[account(mut)]
+    pub vault: Account<'info, Vault>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+#[instruction(user_id:String)]
+pub struct Withdraw<'info> {
+    #[account(
+        mut,
+        seeds = [VAULT_SEED.as_bytes(), user_id.as_bytes()], 
+        bump
+    )]
+    pub vault: Account<'info, Vault>,
+    pub authority: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
