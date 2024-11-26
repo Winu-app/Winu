@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query/build/modern/index.js";
 import { getClansByTournamentId } from "src/actions/tournament/get-clans-by-tournament-id";
 import ClanCard, { ClanCardProps } from "./clan-card";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux/dist/react-redux.js";
 import { addPlayer } from "src/state-manager/features/my-team";
 import { RootState } from "src/state-manager/store";
-import { toast } from "sonner";
-import { usePathname } from "next/navigation";
+import { toast } from "sonner/dist/index.js";
+import { usePathname } from "next/navigation.js";
 
 const Clans = () => {
   const tournamentId = usePathname().split("/")[3];
