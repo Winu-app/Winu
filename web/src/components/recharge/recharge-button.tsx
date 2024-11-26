@@ -1,8 +1,8 @@
 "use client";
-import { useSearchParams } from "next/navigation";
-import { parseAsBoolean, useQueryState } from "nuqs";
+import { useSearchParams } from "next/navigation.js";
+import { parseAsBoolean, useQueryState } from "nuqs/dist/index.js";
 import React from "react";
-import { toast } from "sonner";
+import { toast } from "sonner/dist/index.js";
 
 const RechargeButton = () => {
   const [_, setShowRechargeModal] = useQueryState(
