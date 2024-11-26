@@ -1,9 +1,11 @@
 import React from "react";
 import Clans from "./clans";
+import Header from "./header";
 
 const EndTournament = () => {
   return (
-    <div className="min-h-screen size-full flex items-center justify-center pb-96">
+    <div className="min-h-screen size-full pb-96 px-10">
+      <Header />
       <Clans />
     </div>
   );
