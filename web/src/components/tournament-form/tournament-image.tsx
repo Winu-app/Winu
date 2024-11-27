@@ -63,12 +63,14 @@ const TournamentImage = () => {
           </div>
         )}
       </div>
-      <Link
-        href={`${pathname}/end-tournament`}
-        className="px-4 py-2 bg-white rounded-lg text-black text-center font-semibold"
-      >
-        End Tournament
-      </Link>
+      {pathname.includes("edit") && (
+        <Link
+          href={`${pathname}/end-tournament`}
+          className="px-4 py-2 bg-white rounded-lg text-black text-center font-semibold"
+        >
+          End Tournament
+        </Link>
+      )}
     </div>
   );
 };
