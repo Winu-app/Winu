@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../ui/logo";
+import Image from "next/image";
 
 const PlayerCard = ({
   imageUrl,
@@ -20,7 +21,16 @@ const PlayerCard = ({
       data-player-imageUrl={imageUrl}
     >
       <div className="size-12 rounded-full overflow-hidden border border-active flex items-center justify-center">
-        <Logo className="size-full" />
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt={username}
+            width={1}
+            height={1}
+            className="size-full"
+          />
+        )}
+        {!imageUrl && <Logo className="size-full" />}
       </div>
       <div className="text-xs text-center">
         <p>{username}</p>
