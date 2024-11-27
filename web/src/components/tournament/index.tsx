@@ -42,7 +42,7 @@ const TournamentCard = () => {
           host={data?.tournament?.host.username}
           endDate={data?.tournament?.endDate}
           streamLink={data?.tournament?.streamLink}
-          hostImage={data?.tournament?.host.image}
+          hostImage={data?.tournament?.host.profileImage}
         />
         <Clans tournamentId={id.toString()} />
       </div>
