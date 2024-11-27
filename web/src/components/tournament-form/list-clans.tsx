@@ -7,6 +7,7 @@ import { getClansByTournamentId } from "src/actions/tournament/get-clans-by-tour
 import Logo from "../ui/logo";
 import { removeClanFromTournament } from "src/actions/tournament/remove-clan";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const ListClans = () => {
   const tournamentId = usePathname().split("/")[3];
@@ -35,31 +36,42 @@ const ListClans = () => {
 
   return (
     <div className="size-full flex flex-wrap gap-4">
-      {data?.tournament?.clans.map(({ _id, name, uniqueName }: any) => {
-        return (
-          <div
-            className="w-72 min-h-12 h-fit p-1 rounded-lg bg-[#202020] flex items-center justify-between px-3"
-            key={`tournament-clan-${_id}`}
-            data-clan={_id}
-          >
-            <div className="size-full flex items-center gap-4">
-              <div className="size-12 flex items-center justify-center border border-active rounded-full overflow-hidden">
-                <Logo className="size-full" />
-              </div>
-              <div>
-                <p>{name}</p>
-                <p className="text-xs text-gray-400">{uniqueName}</p>
-              </div>
-            </div>
-            <button
-              className="size-10 rounded-full border border-active shrink-0 flex items-center justify-center hover:bg-active transition-colors"
-              onClick={() => handleClick(_id)}
+      {data?.tournament?.clans.map(
+        ({ _id, name, uniqueName, imageUrl }: any) => {
+          return (
+            <div
+              className="w-72 min-h-12 h-fit p-1 rounded-lg bg-[#202020] flex items-center justify-between px-3"
+              key={`tournament-clan-${_id}`}
+              data-clan={_id}
             >
-              <IoClose size={24} />
-            </button>
-          </div>
-        );
-      })}
+              <div className="size-full flex items-center gap-4">
+                <div className="size-12 flex items-center justify-center border border-active rounded-full overflow-hidden">
+                  {imageUrl && (
+                    <Image
+                      src={imageUrl}
+                      alt={name}
+                      width={1}
+                      height={1}
+                      className="size-full"
+                    />
+                  )}
+                  {!imageUrl && <Logo className="size-full" />}
+                </div>
+                <div>
+                  <p>{name}</p>
+                  <p className="text-xs text-gray-400">{uniqueName}</p>
+                </div>
+              </div>
+              <button
+                className="size-10 rounded-full border border-active shrink-0 flex items-center justify-center hover:bg-active transition-colors"
+                onClick={() => handleClick(_id)}
+              >
+                <IoClose size={24} />
+              </button>
+            </div>
+          );
+        }
+      )}
     </div>
   );
 };
