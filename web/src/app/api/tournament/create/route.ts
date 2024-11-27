@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import Tournament from "../../../../models/tournament";
-import { connect } from "../../../../db/config";
+import Tournament from "src/models/tournament";
+import { connect } from "src/db/config";
 
 connect();
 export async function POST(req: NextRequest) {
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     endDate,
     description,
     image,
-    matches,
+    clans,
     host, //mongodb uid
     isActive,
     createdBy, // wallet address
@@ -39,11 +39,7 @@ export async function POST(req: NextRequest) {
     );
   // if (!host)
   //   return NextResponse.json({ message: "Host is required" }, { status: 400 });
-  if (!matches)
-    return NextResponse.json(
-      { message: "Matches are required" },
-      { status: 400 }
-    );
+
   if (!image)
     return NextResponse.json({ message: "Image is required" }, { status: 400 });
   if (!entryFee)
@@ -63,7 +59,7 @@ export async function POST(req: NextRequest) {
     endDate,
     description,
     image,
-    matches: [],
+    clans: [],
     host,
     isActive,
     createdBy: "demo", //TODO::
