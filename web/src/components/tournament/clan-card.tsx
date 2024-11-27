@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../ui/logo";
 import { Clan, User } from "src/types";
 import PlayerCard from "./player-card";
+import Image from "next/image";
 
 export type ClanCardProps = Omit<Clan, "leader" | "members"> & {
   _id: string;
@@ -21,8 +22,17 @@ const ClanCard = ({
     <div className="w-80 min-h-96 h-fit rounded-lg bg-[#202020] overflow-hidden flex flex-col gap-2">
       {/* Header */}
       <div className="w-full h-12 px-4 bg-active flex items-center gap-2">
-        <div className="size-10 rounded-full flex items-center justify-center border border-[#202020]">
-          <Logo className="size-full" />
+        <div className="size-10 rounded-full flex items-center justify-center border border-[#202020] overflow-hidden">
+          {imageUrl && (
+            <Image
+              src={imageUrl}
+              alt={name}
+              width={1}
+              height={1}
+              className="size-full"
+            />
+          )}
+          {!imageUrl && <Logo className="size-full" />}
         </div>
         <div>
           <p className="text-lg">{name}</p>
