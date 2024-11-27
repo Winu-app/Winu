@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import Tournament from "../../../../models/tournament";
-import User from "../../../../models/user";
-import { connect } from "../../../../db/config";
+import Tournament from "src/models/tournament";
+import User from "src/models/user";
+import { connect } from "src/db/config";
 
 connect();
 export async function GET(
@@ -12,7 +12,7 @@ export async function GET(
     User; //load the model
     const tournament = await Tournament.findById(id).populate(
       "host",
-      "name email username isVerified image"
+      "name email username isVerified profileImage"
     );
     return NextResponse.json({ tournament }, { status: 200 });
   } catch (e) {
