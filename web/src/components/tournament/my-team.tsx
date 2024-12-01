@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "src/state-manager/store";
 import Logo from "../ui/logo";
+import Image from "next/image";
 
 const MyTeam = () => {
   const { players } = useSelector((state: RootState) => state.myTeam);
@@ -26,7 +27,16 @@ const MyTeam = () => {
               key={`my-team-${_id}`}
             >
               <div className="size-12 rounded-full overflow-hidden border border-active flex items-center justify-center">
-                <Logo className="size-full" />
+                {imageUrl && (
+                  <Image
+                    alt={username}
+                    src={imageUrl}
+                    className="size-full"
+                    width={1}
+                    height={1}
+                  />
+                )}
+                {!imageUrl && <Logo className="size-full" />}
               </div>
               <div className="text-xs text-center">
                 <p>{username}</p>
