@@ -1,12 +1,12 @@
 [package]
-name = "Winu"
+name = "winu"
 version = "0.1.0"
 description = "Fantasy Gaming app."
 edition = "2018"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "Winu"
+name = "winu"
 
 [dependencies]
 anchor-lang = "0.30.1"
