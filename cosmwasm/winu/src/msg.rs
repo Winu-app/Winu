@@ -12,5 +12,15 @@ pub enum ExecuteMsg {
 }
 
 #[cw_serde]
+pub struct TournamentResponse {
+    pub id: String,
+    pub bid_price: u64,
+    pub authority: String,
+}
+
+#[cw_serde]
 #[derive(QueryResponses)]
-pub enum QueryMsg {}
+pub enum QueryMsg {
+    #[returns(TournamentResponse)]
+    GetTournament { tournament_id: String },
+}
