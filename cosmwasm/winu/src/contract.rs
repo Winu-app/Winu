@@ -1,6 +1,5 @@
 #[cfg(not(feature = "library"))]
-use cosmwasm_std::entry_point;
-use cosmwasm_std::{Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult,StdError};
+use cosmwasm_std::{entry_point, to_json_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult,StdError};
 // use cw2::set_contract_version;
 
 use crate::error::ContractError;
@@ -35,13 +34,19 @@ pub fn execute(
         ExecuteMsg::CreateTournament { tournament_id, bid_price } => {
             Ok(execute_create_tournament(deps, env, info, tournament_id, bid_price)?)
         }
-        // TODO:: Other ExecuteMsg variants here
+        // TODO:: Other ExecuteMsg variants
     }
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
-pub fn query(_deps: Deps, _env: Env, _msg: QueryMsg) -> StdResult<Binary> {
-    unimplemented!()
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+
+    match msg {
+        QueryMsg::GetTournament { tournament_id } => query_tournament(deps, env, tournament_id),
+    }
+    // unimplemented!()
+
+     // TODO:: Other query variants
 }
 
 #[cfg(test)]
@@ -76,4 +81,19 @@ pub fn execute_create_tournament(
         .add_attribute("tournament_id", tournament_id)
         .add_attribute("bid_price", bid_price.to_string())
         .add_attribute("owner", info.sender.to_string()))
+}
+
+
+pub fn query_tournament(
+    deps: Deps,
+    _env: Env,
+    tournament_id: String,
+) -> StdResult<Binary> {
+    // Retrieve the tournament by ID from storage
+    let tournament = TOURNAMENTS
+        .load(deps.storage, &tournament_id)
+        .map_err(|_| cosmwasm_std::StdError::not_found("Tournament"))?;
+
+    // Return the tournament data as JSON
+    to_json_binary(&tournament)
 }
