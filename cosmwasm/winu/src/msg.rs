@@ -9,6 +9,9 @@ pub enum ExecuteMsg {
         tournament_id: String,
         bid_price: u64,
     },
+    FundWallet {
+        amount: u64,
+    },
 }
 
 #[cw_serde]
@@ -23,4 +26,7 @@ pub struct TournamentResponse {
 pub enum QueryMsg {
     #[returns(TournamentResponse)]
     GetTournament { tournament_id: String },
+    #[returns(u64)]
+    GetWalletBalance { address: String },
 }
+
