@@ -11,3 +11,5 @@ pub struct Tournament {
 }
 
 pub const TOURNAMENTS: Map<&str, Tournament> = Map::new("tournaments");
+pub const BALANCES: Map<&Addr, u64> = Map::new("balances");
+
