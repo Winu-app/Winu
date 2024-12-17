@@ -8,12 +8,10 @@ export async function getUserWithAuthToken() {
     const domain = process.env.DOMAIN;
     const tokenSecret = process.env.TOKEN_SECRET;
     const token = cookies().get("winu-token");
-    console.log("🚀 ~ getUserWithAuthToken ~ token:", token);
 
     if (!token?.value) return { message: "token not found" };
     if (!tokenSecret) return { message: "token secret not found" };
     const decoded: any = jwt.verify(token.value, tokenSecret);
-    console.log("🚀 ~ getUserWithAuthToken ~ decoded:", decoded);
 
     if (!decoded && !decoded.username) return { message: "token not found" };
 
