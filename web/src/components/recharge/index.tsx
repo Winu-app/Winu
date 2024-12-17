@@ -5,7 +5,6 @@ import AddMoney from "./add-money";
 import RechargeButton from "./recharge-button";
 import Payments from "../payments";
 import { useSearchParams } from "next/navigation";
-import ConnectButton from "../soon/connect-button";
 
 const Recharge = () => {
   const searchParams = useSearchParams();
