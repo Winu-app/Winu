@@ -57,7 +57,7 @@ const Clans = ({ tournamentId }: { tournamentId: string }) => {
   };
   return (
     <div
-      className="h-screen w-full flex gap-4 flex-wrap items-center justify-center mt-4"
+      className="h-fit w-full flex gap-4 flex-wrap mt-4"
       onClick={handleClick}
     >
       {data?.tournament?.clans.map(

@@ -28,7 +28,7 @@ const TournamentCard = ({
       }
       className="relative border rounded-lg border-active shrink-0 no-scrollbar h-full w-full bg-foreground flex flex-col items-center overflow-hidden cursor-pointer"
     >
-      <div className="w-full h-60 rounded-t-lg flex items-center justify-center">
+      <div className="w-full h-60 flex items-center justify-center">
         {image ? (
           <Image
             src={image}
@@ -57,16 +57,16 @@ const TournamentCard = ({
               </div>
             )}
           </div>
-          <p className="text-xs hover:underline hover:text-purple w-fit">
+          <p className="text-xs hover:underline hover:text-purple w-fit -mt-2 text-gray-300">
             @{host?.username}
           </p>
         </div>
         <div>
-          <div className="flex gap-2 py-2">
+          <div className="flex gap-1 py-2">
             <div className="size-6 rounded-full bg-red-50"></div>
             <p className="font-semibold">PUBG</p>
           </div>
-          <div className="w-full flex items-center ">
+          <div className="w-full flex items-center -mt-2">
             <div className="size-6 rounded-full bg-red-50"></div>
             <div className="size-6 rounded-full bg-red-50"></div>
             <div className="size-6 rounded-full bg-red-50"></div>

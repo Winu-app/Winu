@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Logo from "../ui/logo";
+import { GiTwoCoins } from "react-icons/gi";
 
 const Header = ({
   image,
@@ -18,13 +19,15 @@ const Header = ({
   return (
     <div className="w-full h-60 overflow-hidden rounded-lg bg-active relative shrink-0">
       {image ? (
-        <Image
-          src={image}
-          alt="tournament"
-          width={1}
-          height={1}
-          className="size-full object-cover border border-active"
-        />
+        <div className="size-full p-1 rounded-lg">
+          <Image
+            src={image}
+            alt="tournament"
+            width={1}
+            height={1}
+            className="size-full object-cover border border-active rounded-md"
+          />
+        </div>
       ) : (
         <Logo className="size-full" />
       )}
@@ -46,9 +49,10 @@ const Header = ({
             </div>
           )}
         </div>
-        <div className="w-full items-end justify-end flex font-semibold">
-          Entry Fee:
-          <span className="text-orange-400 ml-1">{entryFee} Coins</span>
+        <div className="w-fit items-center justify-center flex font-semibold bg-[rgba(100,100,100,0.3)] px-4 py-1.5 rounded-md gap-1">
+          <p>Bid Amount:</p>
+          <span className="text-orange-400">{entryFee}</span>
+          <GiTwoCoins size={20} className="text-orange-400" />
         </div>
       </div>
     </div>

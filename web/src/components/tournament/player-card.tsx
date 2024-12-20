@@ -15,12 +15,12 @@ const PlayerCard = ({
 }) => {
   return (
     <div
-      className="flex gap-2 flex-col items-center cursor-pointer"
+      className="flex gap-2 items-center cursor-pointer hover:bg-dark p-2 rounded-md"
       data-player-id={_id}
       data-player-username={username}
       data-player-imageUrl={imageUrl}
     >
-      <div className="size-12 rounded-full overflow-hidden border border-active flex items-center justify-center">
+      <div className="size-8 rounded-full overflow-hidden border border-active flex items-center justify-center">
         {imageUrl && (
           <Image
             src={imageUrl}
@@ -32,9 +32,9 @@ const PlayerCard = ({
         )}
         {!imageUrl && <Logo className="size-full" />}
       </div>
-      <div className="text-xs text-center">
+      <div className="text-xs">
         <p>{username}</p>
-        <p className="text-[0.6rem]">{role}</p>
+        <p className="text-[0.6rem] text-gray-400">{role}</p>
       </div>
     </div>
   );
