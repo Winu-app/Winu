@@ -90,8 +90,8 @@ const BuyFromExchange = () => {
               {name}
             </option>
           ))}
-          {/* <option value="E-Sports">E-Sports</option> */}
-          <option value="others">Other Exchange</option>
+          {!isConnected && <option value="NA">Connect Wallet</option>}
+          {isConnected && <option value="others">Other Exchange</option>}
         </select>
       </div>
       {exchange === "others" && (
