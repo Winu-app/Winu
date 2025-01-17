@@ -17,7 +17,13 @@ const Navbar = () => {
         <div className="w-0.5 h-2 absolute bottom-0 right-0 bg-[#616160] group-hover:h-full transition-all" />
         WINU
       </div>
-      <div className="flex gap-10 ">
+      <div className="flex gap-5">
+        <Link
+          href={"/exchange"}
+          className="flex items-center justify-center gap-2 px-6 py-2 rounded-xl bg-[#222222] text-white font-semibold active:scale-95 transition-transform"
+        >
+          Buy Coins
+        </Link>
         <Link
           href="/register"
           className="flex items-center justify-center gap-2 px-6 py-2 rounded-xl bg-[#222222] text-white font-semibold active:scale-95 transition-transform"
